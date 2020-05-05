@@ -17,6 +17,7 @@ var getFourYearAPRScore = function(athlete)
 {
   return athlete.FOURYEAR_SCORE;
 }
+var maxNumofSchools =89;
 
 var getSport = function(athlete)
 {
@@ -67,13 +68,13 @@ var edges =[]
  //creates the source and target aka connections for the dots.    
 var convertString = function(d, edge)
     {
-for (i=0; i<d.length; i++)
+for (i=0; i<maxNumofSchools; i++)
    
-        { for (k=i+1 ; k<d.length; k++)
+        { for (k=i+1 ; k<maxNumofSchools; k++)
             {
             if (d[i].SCHOOL_NAME == d[k].SCHOOL_NAME)
             {
-               edge.push( {source: i, target: k} );
+               edge.push( {source: i, target: k , distance: 20});
              
            }
            
@@ -87,23 +88,31 @@ for (i=0; i<d.length; i++)
 }
 var createNodes = function(athlete)
 {
-    
-    var makeNodes = function(d)
-    {
-        return {id: d.FOURYEAR_SCORE};
-    }
-    var nodes = athlete.map(makeNodes);
+    var nodes =[];
+   var makeNodes = function(d, node)
+    { for (i=0; i<maxNumofSchools; i++)
+   {
+        {  
+            node.push( {id: d[i].FOURYEAR_SCORE } );
+           
+            }
+   
+        }
+            }
+   makeNodes(athlete, nodes);
     return nodes;
 }
 
 var drawForceGraph = function(target, athlete, margins, graph, screen)
 {
     var dataset = {nodes: createNodes(athlete), edges: createEdges(athlete)};
+    var radius = 3; 
     
     var force =d3.forceSimulation(dataset.nodes)
-                    .force("charge", d3.forceManyBody())
-                    .force("link", d3.forceLink(dataset.edges))
+                    .force("charge", d3.forceManyBody().strength(-10))
+                    .force("link", d3.forceLink(dataset.edges).distance(function(d){return d.distance}).strength(.02))
                     .force("center", d3.forceCenter().x(screen.width/2).y(screen.height/2))
+                    
     
     var edges =   d3.select(target)
                     .selectAll("line")
@@ -111,13 +120,14 @@ var drawForceGraph = function(target, athlete, margins, graph, screen)
                     .enter()
                     .append("line")
                     .style("stroke", "#ccc")
-                    .style("stroke-wdith", 1)
+                    .style("stroke-width", 1)
+                    
     var nodes = d3.select(target)
                     .selectAll("circle")
                     .data(dataset.nodes)
                     .enter()
                     .append("circle")
-                    .attr("r", 1)
+                    .attr("r", 4)
                     .style("fill", "green")
     
     force.on("tick", function()
@@ -127,8 +137,9 @@ var drawForceGraph = function(target, athlete, margins, graph, screen)
                 .attr("x2", function(d){return d.target.x;})
                 .attr("y2", function(d){return d.target.y;})
 
-        nodes.attr("cx", function(d){return d.x;})
-                .attr("cy", function(d) {return d.y;})
+        nodes.attr("cx", function(d) { return d.x = Math.max(radius, Math.min(screen.width - radius, d.x)); })
+                .attr("cy", function(d) { return d.y = Math.max(radius, Math.min(screen.height - radius, d.y)); });
+
         
         
     })
