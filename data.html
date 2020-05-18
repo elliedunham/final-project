@@ -1,27 +1,42 @@
 <html>
      <head>
     <script src="https://d3js.org/d3.v5.min.js"></script>
+       
    
    <link rel="stylesheet" type="text/css"
           href="data.css">
-    
+  
     </head>
 <body>
-   
-    <buttons>
-    <table>
-        <tr>
-          
-        
-        
-        </tr>
-        
-        </table>
-    </buttons>
+    <h1> Academic Progress Rate of NCAA Division 1 Athletes</h1>
+    <p>
+    According to <a href=http://www.ncaa.org/about/resources/research/academic-progress-rate-explained> NCAA</a>, "The APR, or Academic Progress Rate, holds institutions accountable for the academic progress of their student-athletes through a team-based metric that accounts for the eligibility and retention of each student-athlete for each academic term.
+    </p>
+    <p> The APR is calculated as follows:</p>
+    <ul>
+    <li> Each student-athlete receiving athletically related financial aid earns one point for staying in school and one point for being academically eligible.</li>
+    <li> A team’s total points are divided by points possible and then multiplied by 1,000 to equal the team’s Academic Progress Rate.</li> 
+    <li>In addition to a team’s current-year APR, its rolling four-year APR is also used to determine accountability.</li>
+    </ul>
+
+<p>Teams must earn a four-year average APR of 930 to compete in championships."</p>
+  
+   <h2 id = info> 
+       <text id= initial> Hover over the smaller circles to see the school and sport.</text>
+    <dl>
+        <dt> School: </dt>
+        <dd id = school></dd>
+        <dt> Sport: </dt>
+        <dd id = sport></dd>
+        <dt> APR Score: </dt>
+        <dd id = score></dd>
+     </dl>
+    
+    </h2>
+   <h3> Four Year APR Scores of 150 Sport Teams from Various Schools</h3> 
 <svg id=svgSpread>
     
-    
-    
+  
     
     </svg>
     

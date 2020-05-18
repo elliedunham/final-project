@@ -1,14 +1,47 @@
-.hidden
+
+h2
 {
-    opacity: .1;
+    font-size: 12;
+    font-family: monospace;
+    background-color: white;
+    position: fixed;
+    top: 293px;
+    left: 827px;
+    float: right;
+    border-color: black;
+    border-style: solid;
+    padding: 3px;
+    width: 150px;
+    height: 125px;
+    text-align: left;
+    
 }
-
-td
+h1
 {
-
+    font-size: 20;
+    font-family: monospace;
+    
+}
+h3
+{
+    font-size: 20;
+    font-family: serif;
+    font-weight: bold;
+    padding: 5px;
+}
+#svgSpread
+{
     border-style: solid;
     
-
-
+   
+}
+p 
+{
+width: 550px;
 
 }
+.labels
+{
+ font-weight: bold;
+}
+
